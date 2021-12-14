@@ -1,11 +1,13 @@
 dumbo = [[int(i) for i in input()] for _ in range(10)]
 
+
 def dumbo_string(d):
-    s = ''
+    s = ""
     for row in d:
-        s += ''.join(str(i) for i in row)
-        s += '\n'
+        s += "".join(str(i) for i in row)
+        s += "\n"
     return s
+
 
 total = 0
 for step in range(1000):
@@ -21,10 +23,10 @@ for step in range(1000):
         d = flashing.pop()
         flashed.add(d)
         x, y = d
-        for dx in range(-1,2):
+        for dx in range(-1, 2):
             for dy in range(-1, 2):
-                xx = x+dx
-                yy = y+dy
+                xx = x + dx
+                yy = y + dy
                 if xx < 0 or xx >= len(dumbo[1]) or yy < 0 or yy >= len(dumbo):
                     continue
                 if (xx, yy) in flashed or (xx, yy) in flashing:
@@ -35,6 +37,6 @@ for step in range(1000):
     for x, y in flashed:
         dumbo[y][x] = 0
     if len(flashed) == 100:
-        print(step+1)
+        print(step + 1)
         break
 print(total)

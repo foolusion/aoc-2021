@@ -1,4 +1,4 @@
-fish_ages = [int(i) for i in input().split(',')]
+fish_ages = [int(i) for i in input().split(",")]
 
 age_buckets = {i: 0 for i in range(9)}
 for f in fish_ages:
@@ -12,7 +12,7 @@ for d in range(256):
             temp[6] += v
             temp[8] += v
             continue
-        temp[k-1] += v
+        temp[k - 1] += v
     print(temp)
     age_buckets = temp
 

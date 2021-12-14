@@ -1,10 +1,10 @@
 result = 0
 
-with open('day_08.in') as f:
+with open("day_08.in") as f:
     for line in f:
-        digit_string, output_string = [i.strip() for i in line.split(' | ')]
-        digits = [set(i) for i in digit_string.split(' ')]
-        output = [set(i) for i in output_string.split(' ')]
+        digit_string, output_string = [i.strip() for i in line.split(" | ")]
+        digits = [set(i) for i in digit_string.split(" ")]
+        output = [set(i) for i in output_string.split(" ")]
         zero = set()
         one = set()
         two = set()
@@ -25,13 +25,13 @@ with open('day_08.in') as f:
                 four = o
             elif l == 7:
                 eight = o
-        
+
         for i in digits:
             if len(i) == 6:
                 if not one.issubset(i):
                     six = i
                     continue
-                middle = four-i
+                middle = four - i
                 if len(middle) == 1:
                     zero = i
                     continue
@@ -41,7 +41,7 @@ with open('day_08.in') as f:
                 if one.issubset(i):
                     three = i
                     continue
-                c_seg = nine-i
+                c_seg = nine - i
                 if len(c_seg) == 1:
                     five = i
                     continue
@@ -68,7 +68,7 @@ with open('day_08.in') as f:
                 total += 8
             elif o == nine:
                 total += 9
-        
+
         print(total)
         result += total
 print(result)
