@@ -3,6 +3,8 @@
   (:export :day-1 :day-2))
 (in-package :advent-2021)
 
+(ql:quickload "cl-ppcre")
+
 (defun read-file (file)
   (with-open-file (stream file)
     (loop for line = (read stream nil)
@@ -68,3 +70,43 @@
 (defun day-2 (file)
   (values (day-2-part-1 file)
 	  (day-2-part-2 file)))
+
+(defparameter *day3-test-input-string* "00100
+11110
+10110
+10111
+10101
+01111
+00111
+11100
+10000
+11001
+00010
+01010
+")
+
+(setq *day3-test-input* (cl-ppcre:split "\\s+" *day3-test-input-string*))
+
+(defun nth-is-one? (str n)
+  (eql #\1 (char str n)))
+
+(defun partition-1-0 (list n)
+  (labels ((helper (list n zeros ones)
+	     (cond
+	       ((null list) (list (nreverse zeros) (nreverse ones)))
+	       ((eql (char (first list) n) #\0)
+		(helper (rest list) n (cons (first list) zeros) ones))
+	       (t (helper (rest list) n zeros (cons (first list) ones))))))
+    (helper list n nil nil)))
+
+(defun gamma-rate (list)
+  (let ((l (length (first list))))
+    (labels ((helper (list count num)
+	       (if (= count l)
+		   (coerce (nreverse num) 'string)
+		   (let
+		       ((p (partition-1-0 list count)))
+		     (if (> (length (first p)) (length (second p)))
+			 (helper list (1+ count) (cons #\0 num))
+			 (helper list (1+ count) (cons #\1 num)))))))
+      (helper list 0 nil))))
